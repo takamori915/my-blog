@@ -4,7 +4,7 @@ module.exports = {
     'vuetify'
   ],
   publicPath: isProd ? '/my-blog' : '/',
-  outputPath: 'docs',
+  outputDir: 'docs',
   filenameHashing: false,
   productionSourceMap: false, 
 }
