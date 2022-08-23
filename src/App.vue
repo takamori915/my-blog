@@ -1,33 +1,36 @@
 <template>
   <v-app>
+    <app-header/>
     <v-container>
-      <v-app-bar color="#FFFFFF" flat max-height="100" class="mb-5">
-        <v-toolbar-title>
-          <h1><router-link to="/" class="logo">BLOG</router-link></h1>
-        </v-toolbar-title>
-        <v-spacer></v-spacer>
-        <div id="nav">
-          <router-link to="/">Home</router-link> | 
-          <router-link to="/about">About</router-link> 
-        </div>
-      </v-app-bar>
       <router-view/>
     </v-container>
+    <app-footer/>
   </v-app>
 </template>
+<script>
+import AppHeader from './components/AppHeader.vue'
+import AppFooter from './components/AppFooter.vue'
 
-<style lang="scss">
+export default {
+  name: "app",
+  components: {
+    AppHeader,
+    AppFooter
+  }
+}
+</script>
+
+<style lang="scss" scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  //text-align: center;
   color: #2c3e50;
 }
 
 #nav {
   padding: 30px;
-
   a {
     font-weight: bold;
     color: #2c3e50;
