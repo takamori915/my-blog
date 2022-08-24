@@ -1,40 +1,42 @@
 <template>
   <div>
-    <v-row>
-      <v-col>
-        <v-card class="mx-auto" width="300" height="330">
-          <v-img 
-            class="white--text align-end" height="200" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
-            <v-card-title>Top 10 Australian beachs</v-card-title>
-          </v-img>
-          <v-card-text class="text--primary">
-            <div>WhiteHeaven Beach</div>
-            <div>Whitsunday Island, Whitsunday Islands</div>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn color="orange" text>More</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-      <v-col v-for="article in articles" :key="article.id">
-        <v-card class="mx-auto" width="300" height="330">
-          <v-img 
-            class="white--text align-end" 
-            height="200" 
-            :src="article.image.url">
-            <v-card-title>{{ article.title }}</v-card-title>
-          </v-img>
-          <v-card-text class="text--primary">
-            <div>{{ article.summary }}</div>
-          </v-card-text>
-          <v-card-actions>
-            <router-link :to="{ name: 'article-detail', params: { id: article.id } }">
+    <section class="home">
+      <v-row>
+        <v-col>
+          <v-card class="mx-auto" width="300" height="330">
+            <v-img 
+              class="white--text align-end" height="200" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
+              <v-card-title>Top 10 Australian beachs</v-card-title>
+            </v-img>
+            <v-card-text class="text--primary">
+              <div>WhiteHeaven Beach</div>
+              <div>Whitsunday Island, Whitsunday Islands</div>
+            </v-card-text>
+            <v-card-actions>
               <v-btn color="orange" text>More</v-btn>
-            </router-link>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+        <v-col v-for="article in articles" :key="article.id">
+          <v-card class="mx-auto" width="300" height="330">
+            <v-img 
+              class="white--text align-end" 
+              height="200" 
+              :src="article.image.url">
+              <v-card-title>{{ article.title }}</v-card-title>
+            </v-img>
+            <v-card-text class="text--primary">
+              <div>{{ article.summary }}</div>
+            </v-card-text>
+            <v-card-actions>
+              <router-link :to="{ name: 'article-detail', params: { id: article.id } }">
+                <v-btn color="orange" text>More</v-btn>
+              </router-link>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
+    </section>
   </div>
 </template>
 
@@ -57,3 +59,10 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.home {
+  padding-top: 100px;
+  padding-bottom: 50px;
+}
+</style>

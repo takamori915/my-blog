@@ -5,19 +5,15 @@
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
       <v-toolbar-title>Taka-Cafe</v-toolbar-title>
       <v-tabs>
-        <v-tab v-for="(menuItem, index) in menuItems" :key="index">
+        <v-tab v-for="(menuItem, index) in menuItems" :key="index" :to="menuItem.url">
           {{ menuItem.name }}
         </v-tab>
       </v-tabs>
       <v-spacer></v-spacer>
-      <div id="nav">
-        <router-link to="/">Home</router-link> | 
-        <router-link to="/about">About</router-link> 
-      </div>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" fixed temporary link>
       <v-list nav dense>
-        <v-list-item v-for="(menuItem, index) in menuItems" :key="index">
+        <v-list-item v-for="(menuItem, index) in menuItems" :key="index" :to="menuItem.url">
           <v-list-item-content>
             <v-list-item-title> {{ menuItem.name }}</v-list-item-title>
           </v-list-item-content>
