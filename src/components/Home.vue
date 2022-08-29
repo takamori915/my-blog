@@ -1,6 +1,7 @@
 <template>
   <div>
     <section class="home">
+      <home-header/>
       <v-row>
         <v-col>
           <v-card class="mx-auto" width="300" height="330">
@@ -42,9 +43,13 @@
 
 <script>
 import axios from "axios";
+import HomeHeader from "./HomeHeader.vue";
 
 export default {
-  name: 'Home',  
+  name: 'Home',
+  components: {
+    HomeHeader
+  },
   data: () => ({
     articles: [],
   }),
@@ -61,8 +66,8 @@ export default {
 </script>
 
 <style lang="scss">
-.home {
-  padding-top: 100px;
-  padding-bottom: 50px;
-}
+// .home {
+//   padding-top: 100px;
+//   padding-bottom: 50px;
+// }
 </style>
