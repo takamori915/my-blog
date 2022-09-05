@@ -1,10 +1,15 @@
 
 .section__title {
-  padding-top: 120px;
-  text-align: center;
+  padding-top: 100px;
+  text-align: left;
   &-text {
-    font-weight: 700;
-    font-size: 40px;
+    font-weight: 500;
+    font-size: 30px;
+    color: #e65f78;
+  }
+  &-subtext {
+    font-weight: 300;
+    font-size: 20px;
     color: #e65f78;
   }
 }

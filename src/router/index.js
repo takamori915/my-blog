@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../components/Home.vue'
-import ArticleDetail from '../views/ArticleDetail.vue'
+import ArticleDetail from '../components/ArticleDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -20,6 +20,11 @@ const routes = [
     path: '/articles/:id',
     name: "article-detail",
     component: ArticleDetail
+  },
+  {
+    path: '/onsen/',
+    name: "onsen-list",
+    component: () => import('../components/OnsenList.vue')
   }
 ]
 
