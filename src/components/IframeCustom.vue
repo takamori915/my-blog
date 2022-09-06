@@ -1,6 +1,11 @@
 <template>
-  <div>
-    <iframe :src="src" :width="width" :height="height" :class="_class" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+  <div class="yt-responsive">
+    <iframe :src="src" 
+      allowfullscreen 
+      loading="lazy"
+      frameborder="0"
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+      referrerpolicy="no-referrer-when-downgrade">
     </iframe>
   </div>
 </template>
@@ -12,14 +17,6 @@ export default {
       type: String,
       required: true,
     },
-    width: {
-      type: Number,
-      default: 600,
-    },
-    height: {
-      type: Number,
-      default: 450
-    },
     _class: {
       type: String,
       default: "border:0;"
@@ -27,4 +24,14 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.yt-responsive iframe{
+  position:absolute;
+  top:0;
+  right:0;
+  width:100%;
+  height:100%;
+}
+</style>
 
