@@ -7,7 +7,6 @@
     </div>
     <v-container fluid>
       <v-row class="article-detail__contents">
-        
         <v-col cols="12" md="6" class="article-detail__contents-text">
           <div v-html="sanitizedBody"></div>
         </v-col>

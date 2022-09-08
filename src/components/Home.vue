@@ -2,54 +2,56 @@
   <div>
     <section class="home">
       <home-header/>
-      <v-row>
-        <!-- <v-col>
-          <v-card class="mx-auto" width="300" height="330">
-            <v-img 
-              class="white--text align-end" height="200" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
-              <v-card-title>Top 10 Australian beachs</v-card-title>
-            </v-img>
-            <v-card-text class="text--primary">
-              <div>WhiteHeaven Beach</div>
-              <div>Whitsunday Island, Whitsunday Islands</div>
-            </v-card-text>
-            <v-card-actions>
-              <v-btn color="orange" text>More</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col> -->
-        <v-col cols="12" sm="8" class="">
-          <v-row no-gutters>
-            <v-col v-for="article in articles" :key="article.id" class="ma-3">
-              <v-card width="300" height="330">
-                <v-img
-                  class="white--text align-end" 
-                  height="200" 
-                  :src="article.imgUrl1">
-                  <v-card-title>{{ article.title + " - " + article.category }}</v-card-title>
-                </v-img>
-                <v-card-text class="text--primary">
-                  <div>{{ article.summary }}</div>
-                </v-card-text>
-                <v-card-actions>
-                  <router-link :to="{ name: 'article-detail', params: { id: article.id } }">
-                    <v-btn color="orange" text>詳細</v-btn>
-                  </router-link>
-                </v-card-actions>
-              </v-card>
-            </v-col>
-          </v-row>
-        </v-col>
-        <v-col cols="12" sm="4">
-          <v-row>
-            <v-col cols="12" v-for="article in articles" :key="article.id">
-              <v-card height="300" v-if="article.map">
-                <iframe-custom :src="String(article.map)"></iframe-custom>
-              </v-card>
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-row>
+      <v-container class="home-container">
+        <v-row class="home-contents">
+          <!-- <v-col>
+            <v-card class="mx-auto" width="300" height="330">
+              <v-img 
+                class="white--text align-end" height="200" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
+                <v-card-title>Top 10 Australian beachs</v-card-title>
+              </v-img>
+              <v-card-text class="text--primary">
+                <div>WhiteHeaven Beach</div>
+                <div>Whitsunday Island, Whitsunday Islands</div>
+              </v-card-text>
+              <v-card-actions>
+                <v-btn color="orange" text>More</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col> -->
+          <v-col cols="12" sm="9" class="home-contents-main">
+            <v-row>
+              <v-col v-for="article in articles" :key="article.id" align="center">
+                <v-card width="300" height="330">
+                  <v-img
+                    class="white--text align-end" 
+                    height="200" 
+                    :src="article.imgUrl1">
+                    <v-card-title>{{ article.title + " - " + article.category }}</v-card-title>
+                  </v-img>
+                  <v-card-text class="text--primary">
+                    <div>{{ article.summary }}</div>
+                  </v-card-text>
+                  <v-card-actions>
+                    <router-link :to="{ name: 'article-detail', params: { id: article.id } }">
+                      <v-btn color="orange" text>詳細</v-btn>
+                    </router-link>
+                  </v-card-actions>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-col>
+          <v-col cols="12" sm="3" class="home-contents-right">
+            <v-row>
+              <v-col cols="12" v-for="article in articles" :key="article.id" align="center">
+                <v-card height="300" v-if="article.map">
+                  <iframe-custom :src="String(article.map)"></iframe-custom>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+      </v-container>
     </section>
   </div>
 </template>
@@ -90,8 +92,15 @@ export default {
 </script>
 
 <style lang="scss">
-// .home {
-//   padding-top: 100px;
-//   padding-bottom: 50px;
-// }
+.home-container {
+  padding: 0;
+  margin: 0;
+  max-width: none;
+}
+.home-contents {
+  margin: 10px 10px 40px 10px;
+}
+.home-contents-main {
+  justify-content: right;
+}
 </style>
