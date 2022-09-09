@@ -22,7 +22,7 @@
           <v-col cols="12" sm="9" class="home__contents-main">
             <v-row>
               <v-col v-for="article in articles" :key="article.id" align="center">
-                <v-card width="300" height="330">
+                <v-card width="300" height="300">
                   <v-img
                     class="white--text align-end" 
                     height="200" 
@@ -35,7 +35,8 @@
                   <v-card-text class="text--primary">
                     <div align="left">{{ article.summary }}</div>
                   </v-card-text>
-                  <v-card-actions>
+                  <v-card-actions class="">
+                    <v-spacer></v-spacer>
                     <router-link :to="{ name: 'article-detail', params: { id: article.id } }">
                       <v-btn color="orange" text>詳細</v-btn>
                     </router-link>
