@@ -21,7 +21,6 @@ export default {
   }
 }
 </script>
-export defaults
 <style lang="scss">
 .button {
   text-align: center;
