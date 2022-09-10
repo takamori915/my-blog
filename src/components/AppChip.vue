@@ -4,6 +4,7 @@
     :text-color="textColor"
     class="chip"
     :label="label"
+    small
   >
     {{ text }}
   </v-chip>

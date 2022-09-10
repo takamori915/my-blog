@@ -32,8 +32,8 @@
                   <div class="category">
                     <app-chip :text="article.categoryName"></app-chip>
                   </div>
-                  <v-card-text class="text--primary">
-                    <div align="left">{{ article.summary }}</div>
+                  <v-card-text class="text--primary text-left" width="20px">
+                    <div>{{ article.summary }}</div>
                   </v-card-text>
                   <v-card-actions class="">
                     <v-spacer></v-spacer>
@@ -42,6 +42,38 @@
                     </router-link>
                   </v-card-actions>
                 </v-card>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-divider></v-divider>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col v-for="(article) in articles" :key="article.id" align="center">
+                  <v-row>
+                    <v-col cols="12">
+                      <router-link :to="{ name: 'article-detail', params: { id: article.id } }" class="home__router-link">
+                      <div class="home__content-main--flex">
+                        <figure>
+                          <v-img :src="article.imgUrl1" class="home__content-main-img"></v-img>
+                        </figure>
+                        <div align="left" class="ma-2" width="330px">
+                          <p class="home__content-create-at">{{ article.createdAt }}
+                            <app-chip :text="article.categoryName" class="ml-1"></app-chip>
+                          </p>
+                          <h3>
+                            {{ article.title }}
+                          </h3>
+                          <div width="300px">
+                            <p class="home__content-summary">{{ article.summary }}</p>
+                          </div>
+                        </div>
+                      </div>
+                      </router-link>
+                      <v-divider></v-divider>
+                    </v-col>
+                  </v-row>
               </v-col>
             </v-row>
           </v-col>
@@ -65,6 +97,9 @@ import axios from "axios";
 import HomeHeader from "./HomeHeader.vue";
 import IframeCustom from "../components/IframeCustom.vue";
 import AppChip from "../components/AppChip.vue"
+import moment from "moment"
+
+moment.locale("ja")
 
 export default {
   name: 'Home',
@@ -95,6 +130,11 @@ export default {
       if (article.category) {
         article.categoryName = article.category[0];
       }
+      if (article.created_at) {
+        article.createdAt = moment(article.created_at).format("YYYY年M月D日(dd) hh:mm:ss");
+      } else {
+        article.createdAt = "";
+      }
     })
   },
 }
@@ -116,5 +156,40 @@ export default {
   position: absolute; 
   top: 10px; 
   right: 10px;
+}
+.v-card__text {
+  height: 20px;
+  overflow: hidden;
+}
+
+.home__content-main--flex {
+  display: flex;
+  padding: 0px 10px 10px 20px;
+  height: 150px;
+  width: 450px;
+  figure {
+    width: 120px;
+    height: 120px;
+  }
+  .home__content-create-at {
+    font-size: 12px;
+  }
+  .home__content-summary {
+    width: 300px;
+    height: 50px;
+    overflow: hidden;
+    word-wrap: break-word;
+  }
+}
+.home__content-main-img {
+  min-width: 120px;
+  min-height: 120px;
+  max-width: 100%;
+  max-height: 100%;
+  vertical-align: top;
+}
+.home__router-link {
+  text-decoration: none;
+  color: inherit !important;
 }
 </style>
