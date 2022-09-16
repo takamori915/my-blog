@@ -21,6 +21,41 @@
           </v-col> -->
           <v-col cols="12" sm="9" class="home__contents-main">
             <v-row>
+              <v-col>
+                <h2>最近の記事</h2>
+                <v-divider></v-divider>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" sm="6" v-for="(article) in articles" :key="article.id" align="left">
+                <router-link :to="{ name: 'article-detail', params: { id: article.id } }" class="home__router-link">
+                  <v-row class="home__content-side">
+                    <v-col cols="5" class="home__content-side-frame">
+                        <v-img :src="article.imgUrl1" class="home__content-side-img">
+                          <div class="home__content-side-category">
+                            <app-chip :text="article.categoryName"></app-chip>
+                          </div>
+                        </v-img>
+                    </v-col>
+                    <v-col cols="7" class="home__content-side-text">
+                      <p class="home__content-side-created-at">
+                        {{ article.createdAt }}
+                      </p>
+                      <h4>{{ article.title }}</h4>
+                      <p class="home__content-side-summary">{{ article.summary }}</p>
+                    </v-col>
+                  </v-row>
+                  <v-divider></v-divider>
+                </router-link>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                 <h2>おすすめの記事</h2>
+                <v-divider></v-divider>
+              </v-col>
+            </v-row>
+            <v-row>
               <v-col v-for="article in articles" :key="article.id" align="center">
                 <v-card width="300" height="300">
                   <v-img
@@ -42,38 +77,6 @@
                     </router-link>
                   </v-card-actions>
                 </v-card>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                <v-divider></v-divider>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col v-for="(article) in articles" :key="article.id" align="center">
-                  <v-row>
-                    <v-col cols="12">
-                      <router-link :to="{ name: 'article-detail', params: { id: article.id } }" class="home__router-link">
-                      <div class="home__content-main--flex">
-                        <figure>
-                          <v-img :src="article.imgUrl1" class="home__content-main-img"></v-img>
-                        </figure>
-                        <div align="left" class="ma-2" width="330px">
-                          <p class="home__content-create-at">{{ article.createdAt }}
-                            <app-chip :text="article.categoryName" class="ml-1"></app-chip>
-                          </p>
-                          <h3>
-                            {{ article.title }}
-                          </h3>
-                          <div width="300px">
-                            <p class="home__content-summary">{{ article.summary }}</p>
-                          </div>
-                        </div>
-                      </div>
-                      </router-link>
-                      <v-divider></v-divider>
-                    </v-col>
-                  </v-row>
               </v-col>
             </v-row>
           </v-col>
@@ -164,22 +167,22 @@ export default {
 
 .home__content-main--flex {
   display: flex;
-  padding: 0px 10px 10px 20px;
+  padding: 0px 10px 10px 10px;
   height: 150px;
   width: 450px;
-  figure {
-    width: 120px;
-    height: 120px;
-  }
   .home__content-create-at {
     font-size: 12px;
-  }
+    margin: 0;
+  }                                                                               
   .home__content-summary {
-    width: 300px;
     height: 50px;
     overflow: hidden;
-    word-wrap: break-word;
+    word-break: break-all;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ;
   }
+}
+figure {
+  width: 120px;
+  height: 120px;
 }
 .home__content-main-img {
   min-width: 120px;
@@ -191,5 +194,40 @@ export default {
 .home__router-link {
   text-decoration: none;
   color: inherit !important;
+}
+.home__content-side {
+  justify-content: center;
+  align-content: center;
+  margin: 0px;
+  padding: 0 0 20px 0px;
+  &-frame {
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    min-width: 120px;
+    min-height: 120px;
+  }
+  &-text {
+    text-align: left;
+    margin: 0;
+    padding: 0 0 0 10px;
+    word-wrap: break-word;
+  }
+  &-created-at {
+    font-size: 10px;
+    text-align: right;
+    margin: 0 !important;
+  }
+  &-category {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+  &-summary {
+    font-size: 12px;
+  }
+  &-img {
+    height: 140px;
+  }
 }
 </style>
