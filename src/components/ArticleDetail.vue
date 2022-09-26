@@ -7,37 +7,30 @@
       <v-row class="article-detail__contents">
         <v-col cols="12" sm="9">
           <v-row>
-            <v-col cols="12" md="6" class="article-detail__contents-img">
-              <v-card>
-                <v-carousel hide-delimiters height="400px">
-                  <v-carousel-item>
-                    <v-img :src="article.imgUrl1" alt="" class="img-fluid" height="400px"></v-img>
-                  </v-carousel-item>
-                  <v-carousel-item>
-                    <v-img :src="article.imgUrl2" alt="" class="img-fluid" height="400px"></v-img>
-                  </v-carousel-item>
-                  <v-carousel-item>
-                    <v-img :src="article.imgUrl3" alt="" class="img-fluid" height="400px"></v-img>
-                  </v-carousel-item>
-                </v-carousel>
-              </v-card>
-            </v-col>
-            <v-col cols="12" md="6" class="article-detail__contents-text">
+            <v-col cols="12" md="6" class="article-detail__contents-text ">
               <div class="section__title-subtext"><app-chip :text="article.categoryName"></app-chip></div>
               <div class="section__title-summary">{{ article.summary }}</div>
               <br />
               <div v-html="sanitizedBody"></div>
             </v-col>
-            <!-- <v-col cols="12" md="8">
-              <h1 id="hd1ac9299fb">温泉タイトル</h1><iframe class="embedly-embed" src="https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fwww.youtube.com%2Fembed%2FKyBHXjh0mzo%3Ffeature%3Doembed&display_name=YouTube&url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DKyBHXjh0mzo&image=https%3A%2F%2Fi.ytimg.com%2Fvi%2FKyBHXjh0mzo%2Fhqdefault.jpg&key=94335756f04b424b8ce3ce71cbe3de0a&type=text%2Fhtml&schema=youtube" width="560" height="315" scrolling="no" title="YouTube embed" frameborder="0" allow="autoplay; fullscreen" allowfullscreen="true"></iframe><p><br><br><br><br></p> 
-            </v-col> -->
             <v-col cols="12" md="6" class="article-detail__contents-img">
-              <v-card height="400px">
+              <v-card>
+                <v-carousel hide-delimiters height="300px">
+                  <v-carousel-item>
+                    <v-img :src="article.imgUrl1" alt="" class="img-fluid" height="300px"></v-img>
+                  </v-carousel-item>
+                  <v-carousel-item>
+                    <v-img :src="article.imgUrl2" alt="" class="img-fluid" height="300px"></v-img>
+                  </v-carousel-item>
+                  <v-carousel-item>
+                    <v-img :src="article.imgUrl3" alt="" class="img-fluid" height="300px"></v-img>
+                  </v-carousel-item>
+                </v-carousel>
+              </v-card>
+              <v-card v-if="article.map" class="article-detail__contents-img mt-4" height="300px">
                 <iframe-custom :src="String(article.map)"></iframe-custom>
               </v-card>
-            </v-col>
-            <v-col cols="12" md="6" class="article-detail__contents-img">
-              <v-card height="400">
+              <v-card v-if="article.movie" cols="12" md="6" class="article-detail__contents-img mt-4" height="300">
                 <iframe-custom :src="String(article.movie)"></iframe-custom>
               </v-card>
             </v-col>
