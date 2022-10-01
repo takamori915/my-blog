@@ -10,6 +10,7 @@
         </v-tab>
       </v-tabs>
       <v-spacer></v-spacer>
+      <v-text-field></v-text-field>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" fixed temporary link>
       <v-list nav dense>
