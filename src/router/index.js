@@ -22,10 +22,40 @@ const routes = [
     component: ArticleDetail
   },
   {
-    path: '/onsen/',
-    name: "onsen-list",
-    component: () => import('../components/OnsenList.vue')
-  }
+    path: '/onsen',
+    name: "onsen",
+    component: () => import('../components/Onsen.vue')
+  },
+  {
+    path: '/trip',
+    name: "trip",
+    component: () => import('../components/Trip.vue')
+  },
+  {
+    path: '/noodle',
+    name: "noodle",
+    component: () => import('../components/Noodle.vue')
+  },
+  {
+    path: '/map',
+    name: "map",
+    component: () => import('../components/Map.vue')
+  },
+  {
+    path: '/purchase',
+    name: "purchase",
+    component: () => import('../components/Purchase.vue')
+  },
+  {
+    path: '/ranking',
+    name: "ranking",
+    component: () => import('../components/Ranking.vue')
+  },
+  {
+    path: '/search',
+    name: "search",
+    component: () => import('../components/Search.vue')
+  },
 ]
 
 const router = new VueRouter({

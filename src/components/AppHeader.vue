@@ -10,7 +10,9 @@
         </v-tab>
       </v-tabs>
       <v-spacer></v-spacer>
-      <v-text-field></v-text-field>
+      <v-btn icon class="ma-2" to="/search">
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" fixed temporary link>
       <v-list nav dense>

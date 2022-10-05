@@ -10,15 +10,19 @@ export default {
     },
     {
       name: '旅行',
-      url: '/travel',
+      url: '/trip',
     },  
     {
       name: 'ラーメン',
-      url: '/ramen',
+      url: '/noodle',
+    },
+    {
+      name: 'マップ',
+      url: '/map',
     },
     {
       name: '購入品',
-      url: '/items',
+      url: '/purchase',
     },
     {
       name: 'ランキング',
