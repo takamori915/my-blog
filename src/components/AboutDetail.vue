@@ -12,8 +12,8 @@
           <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
           <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</p>
         </v-col>
+        <v-col><app-button :button-text="buttonText" :url="url"/></v-col>
       </v-row>
-      <app-button :button-text="buttonText" :url="url"/>
     </v-container>
   </section>
 </template>
