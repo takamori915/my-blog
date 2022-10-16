@@ -6,12 +6,52 @@
         <v-row class="search__contents">
           <v-col cols="12" sm="9" class="search__contents-main">
             <v-row>
-              <v-col>
-                <h2>最近の記事</h2>
-                <v-divider></v-divider>
+              <v-col cols="12" sm="6" class="py-1">
+                <v-text-field
+                  hide-details
+                  placeholder="キーワードを入力"
+                  v-model="keyword"
+                  prepend-inner-icon="mdi-magnify"
+                  height="30"
+                  clearable
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="5" class="py-1">
+                <v-select
+                  :items="categoryItems"
+                  item-text="name"
+                  item-value="name"
+                  v-model="categoryNames"
+                  placeholder="カテゴリ"
+                  multiple
+                  chips
+                  clearable
+                  hide-details
+                  class="pa-0"
+                ></v-select>
+              </v-col>
+              <v-col cols="12" sm="1" class="pb-1 pt-3">
+                <v-btn
+                  block
+                  color="grey darken-4"
+                  class="white--text"
+                  @click="getData()"
+                >
+                  検 索
+                </v-btn>
               </v-col>
             </v-row>
             <v-row>
+              <v-col cols="12">
+                <v-divider></v-divider>
+              </v-col>
+            </v-row>
+            <v-row v-if="isLoading">
+              <v-col cols="12" align="center">
+               <v-progress-circular indeterminate color="deep-purple accent-4"></v-progress-circular>
+              </v-col>
+            </v-row>
+            <v-row v-if="!isLoading">
               <v-col cols="12" sm="6" v-for="(article) in articles" :key="article.id" align="left">
                 <router-link :to="{ name: 'article-detail', params: { id: article.id } }" class="search__router-link">
                   <v-row class="search__content-side">
@@ -33,39 +73,6 @@
                   <v-divider></v-divider>
                 </router-link>
               </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                 <h2>おすすめの記事</h2>
-                <v-divider></v-divider>
-              </v-col>
-            </v-row>
-            <v-row justify="center">
-              <div v-for="(article, index) in articles" :key="article.id">
-                <v-col v-if="index <= 2">
-                  <v-card max-width="300">
-                    <v-img
-                      class="white--text align-end" 
-                      height="200" 
-                      :src="article.imgUrl1">
-                      <v-card-title>{{ article.title}}</v-card-title>
-                    </v-img>
-                    <div class="category">
-                      <app-chip :text="article.categoryName"></app-chip>
-                    </div>
-                    <p class="search__content-recommend-summary text--primary text-left ma-2">{{ article.summary }}</p>
-                    <p class="search__content-recommend-created-at ma-2">
-                      {{ article.createdAt }}
-                    </p>
-                    <v-card-actions class="">
-                      <v-spacer></v-spacer>
-                      <router-link :to="{ name: 'article-detail', params: { id: article.id } }">
-                        <v-btn color="orange" text>詳細</v-btn>
-                      </router-link>
-                    </v-card-actions>
-                  </v-card>
-                </v-col>
-              </div>
             </v-row>
           </v-col>
           <v-col cols="12" sm="3" class="search__contents-right">
@@ -92,6 +99,7 @@ import axios from "axios";
 import HomeHeader from "./HomeHeader.vue";
 import AppChip from "./AppChip.vue"
 import moment from "moment"
+import constants from "../common/constants"
 
 moment.locale("ja")
 
@@ -103,29 +111,59 @@ export default {
   },
   data: () => ({
     articles: [],
+    keyword: "",
+    categoryItems: constants.categoryItems,
+    categoryNames: [],
+    isLoading: false,
   }),
-  async mounted() {
-    const response = await axios.get(
-      "https://takamori-c.microcms.io/api/v1/articles?filters=category[contains]旅行",
-      {
-        headers: { "X-MICROCMS-API-KEY": process.env.VUE_APP_X_MICROCMS_API_KEY },
+  mounted() {
+    this.getData();
+  },
+  methods: {
+    async getData() {
+      this.isLoading = true;
+      const response = await axios.get(
+        "https://takamori-c.microcms.io/api/v1/articles?" + this.getKeyword(),
+        {
+          headers: { "X-MICROCMS-API-KEY": process.env.VUE_APP_X_MICROCMS_API_KEY },
+        }
+      );
+      let resData = response.data.contents;
+      resData.forEach(article => {
+        if (article.image1?.url) {
+          article.imgUrl1 = article.image1?.url; 
+        }
+        if (article.category) {
+          article.categoryName = article.category[0];
+        }
+        if (article.created_at) {
+          article.createdAt = moment(article.created_at).format("YYYY年M月D日(dd)");
+        } else {
+          article.createdAt = "";
+        }
+      })
+      resData.sort((a, b) => { return (a.created_at > b.created_at) ? -1 : 1; });
+      this.articles = resData;
+      this.isLoading = false;
+    },
+    getKeyword() {
+      let keywordList = "";
+      if (this.keyword) {
+        keywordList = "filters=(category[contains]" + this.keyword + 
+                      "[or]title[contains]" + this.keyword + 
+                      "[or]summary[contains]" + this.keyword + 
+                      "[or]body[contains]" + this.keyword + ")";
       }
-    );
-    this.articles = response.data.contents;
-    this.articles.forEach(article => {
-      if (article.image1?.url) {
-        article.imgUrl1 = article.image1?.url; 
-      }
-      if (article.category) {
-        article.categoryName = article.category[0];
-      }
-      if (article.created_at) {
-        article.createdAt = moment(article.created_at).format("YYYY年M月D日(dd)");
-      } else {
-        article.createdAt = "";
-      }
-    })
-    this.articles.sort((a, b) => { return (a.created_at > b.created_at) ? -1 : 1; });
+      this.categoryNames.forEach((name, index) => { 
+        if (!keywordList) {
+          keywordList = "filters=";
+        }
+        keywordList = keywordList + (index === 0 ?  (this.keyword ? "[and](" : "(") : "[or]");
+        keywordList = keywordList + "category[contains]" + name;
+        keywordList = keywordList + (index === this.categoryNames.length - 1 ? ")" : "");
+      });
+      return keywordList;
+    }
   },
 }
 </script>
@@ -229,5 +267,8 @@ figure {
     text-align: right;
     margin: 0 !important;
   }
+}
+.search__btn {
+  color: #616161;
 }
 </style>
