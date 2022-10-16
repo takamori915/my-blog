@@ -41,7 +41,7 @@
               </v-col>
             </v-row>
             <v-row justify="center">
-              <div v-for="(article, index) in articles" :key="article.id">
+              <div v-for="(article, index) in recommends" :key="article.id">
                 <v-col v-if="index <= 2">
                   <v-card max-width="300">
                     <v-img
@@ -103,30 +103,38 @@ export default {
   },
   data: () => ({
     articles: [],
+    recommends: [],
   }),
-  async mounted() {
-    const response = await axios.get(
-      "https://takamori-c.microcms.io/api/v1/articles?filters=category[contains]温泉",
-      {
-        headers: { "X-MICROCMS-API-KEY": process.env.VUE_APP_X_MICROCMS_API_KEY },
-      }
-    );
-    this.articles = response.data.contents;
-    this.articles.forEach(article => {
-      if (article.image1?.url) {
-        article.imgUrl1 = article.image1?.url; 
-      }
-      if (article.category) {
-        article.categoryName = article.category[0];
-      }
-      if (article.created_at) {
-        article.createdAt = moment(article.created_at).format("YYYY年M月D日(dd)");
-      } else {
-        article.createdAt = "";
-      }
-    })
-    this.articles.sort((a, b) => { return (a.created_at > b.created_at) ? -1 : 1; });
+  mounted() {
+    this.getData("filters=category[contains]温泉").then(( res ) => { this.articles = res });
+    this.getData("filters=category[contains]ラーメン[or]category[contains]旅行").then(( res ) => { this.recommends = res });
   },
+  methods: {
+    async getData(filter) {
+      const response = await axios.get(
+        "https://takamori-c.microcms.io/api/v1/articles?" + filter,
+        {
+          headers: { "X-MICROCMS-API-KEY": process.env.VUE_APP_X_MICROCMS_API_KEY },
+        }
+      );
+      let resData = response.data.contents;
+      resData.forEach(article => {
+        if (article.image1?.url) {
+          article.imgUrl1 = article.image1?.url; 
+        }
+        if (article.category) {
+          article.categoryName = article.category[0];
+        }
+        if (article.created_at) {
+          article.createdAt = moment(article.created_at).format("YYYY年M月D日(dd)");
+        } else {
+          article.createdAt = "";
+        }
+      })
+      resData.sort((a, b) => { return (a.created_at > b.created_at) ? -1 : 1; });
+      return resData;
+    },
+  }
 }
 </script>
 

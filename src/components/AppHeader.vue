@@ -1,7 +1,7 @@
 
 <template>
   <header>
-    <v-app-bar app dark>
+    <v-app-bar app dark clipped-left>
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
       <v-toolbar-title>Taka-Cafe</v-toolbar-title>
       <v-tabs>
@@ -14,7 +14,7 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer" fixed temporary link>
+    <v-navigation-drawer v-model="drawer" app dark temporary clipped link>
       <v-list nav dense>
         <v-list-item v-for="(menuItem, index) in menuItems" :key="index" :to="menuItem.url">
           <v-list-item-content>

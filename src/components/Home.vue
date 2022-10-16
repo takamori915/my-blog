@@ -49,39 +49,6 @@
                 </router-link>
               </v-col>
             </v-row>
-            <v-row>
-              <v-col>
-                 <h2>おすすめの記事</h2>
-                <v-divider></v-divider>
-              </v-col>
-            </v-row>
-            <v-row justify="center">
-              <div v-for="(article, index) in articles" :key="article.id">
-                <v-col v-if="index <= 2">
-                  <v-card max-width="300">
-                    <v-img
-                      class="white--text align-end" 
-                      height="200" 
-                      :src="article.imgUrl1">
-                      <v-card-title>{{ article.title}}</v-card-title>
-                    </v-img>
-                    <div class="category">
-                      <app-chip :text="article.categoryName"></app-chip>
-                    </div>
-                    <p class="home__content-recommend-summary text--primary text-left ma-2">{{ article.summary }}</p>
-                    <p class="home__content-recommend-created-at ma-2">
-                      {{ article.createdAt }}
-                    </p>
-                    <v-card-actions class="">
-                      <v-spacer></v-spacer>
-                      <router-link :to="{ name: 'article-detail', params: { id: article.id } }">
-                        <v-btn color="orange" text>詳細</v-btn>
-                      </router-link>
-                    </v-card-actions>
-                  </v-card>
-                </v-col>
-              </div>
-            </v-row>
           </v-col>
           <v-col cols="12" sm="3" class="home__contents-right">
             <v-row>

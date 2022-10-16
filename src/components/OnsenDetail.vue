@@ -16,10 +16,9 @@ import sanitizeHtml from "sanitize-html";
 export default {
     name: "OnsenDetail",
     data: () => ({
-      article: {}
+      article: {},
     }),
     async mounted() {
-      console.log(this.$route.params);
       const response = await axios.get(
         "https://takamori-c.microcms.io/api/v1/articles/" +
           this.$route.params.id,

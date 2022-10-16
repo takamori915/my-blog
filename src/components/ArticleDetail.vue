@@ -38,9 +38,13 @@
         </v-col>
         <v-col cols="12" sm="3">
           <v-row>
-            <v-col align="center">
-              <v-card height="300" v-if="article.map">
-                <iframe-custom :src="String(article.map)"></iframe-custom>
+            <v-col cols="12" align="center">
+              <v-card height="300">
+                目次
+                <br />
+                広告
+                <br />
+                GoogleAdsense
               </v-card>
             </v-col>
           </v-row>
@@ -87,7 +91,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-        });        
+        });      
       }
     },
     computed: {
@@ -111,8 +115,6 @@ export default {
   justify-content: center;
   &-img {
     text-align: center;
-  }
-  &-text {
   }
 }
 </style>
