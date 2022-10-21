@@ -116,9 +116,6 @@ export default {
     categoryNames: [],
     isLoading: false,
   }),
-  mounted() {
-    this.getData();
-  },
   methods: {
     async getData() {
       this.isLoading = true;

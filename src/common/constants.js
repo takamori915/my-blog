@@ -17,7 +17,7 @@ export default {
       url: '/noodle',
     },
     {
-      name: '購入品',
+      name: 'オススメ商品',
       url: '/purchase',
     },
     {
@@ -48,7 +48,7 @@ export default {
     },
     {
       id: 4,
-      name: '購入品',
+      name: 'オススメ商品',
     },
   ],
 }
