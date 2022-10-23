@@ -45,6 +45,7 @@
             <v-row>
               <v-col cols="12">
                 <v-divider></v-divider>
+                <p class="pt-2" v-if="articles.length === 0">検索した記事はありません</p>
               </v-col>
             </v-row>
             <v-row v-if="isLoading" align-content="center" style="height: 500px;">
@@ -120,6 +121,8 @@ export default {
   methods: {
     async getData() {
       this.isLoading = true;
+      console.log("this.getKeyword()");
+      console.log(this.getKeyword());
       const response = await axios.get(
         "https://takamori-c.microcms.io/api/v1/articles?" + this.getKeyword(),
         {
@@ -145,18 +148,16 @@ export default {
       this.isLoading = false;
     },
     getKeyword() {
-      let keywordList = "";
+      let keywordList = "filters=id[not_equals]ohvpy7dzml"; // 地図を除く
       if (this.keyword) {
-        keywordList = "filters=(category[contains]" + this.keyword + 
+        keywordList = keywordList + 
+                      "[and](category[contains]" + this.keyword + 
                       "[or]title[contains]" + this.keyword + 
                       "[or]summary[contains]" + this.keyword + 
                       "[or]body[contains]" + this.keyword + ")";
       }
       this.categoryNames.forEach((name, index) => { 
-        if (!keywordList) {
-          keywordList = "filters=";
-        }
-        keywordList = keywordList + (index === 0 ?  (this.keyword ? "[and](" : "(") : "[or]");
+        keywordList = keywordList + (index === 0 ?  "[and](" : "[or]");
         keywordList = keywordList + "category[contains]" + name;
         keywordList = keywordList + (index === this.categoryNames.length - 1 ? ")" : "");
       });

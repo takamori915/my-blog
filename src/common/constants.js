@@ -11,22 +11,26 @@ export default {
     {
       name: '旅行',
       url: '/trip',
-    },  
+    },
     {
       name: 'ラーメン',
       url: '/noodle',
+    },
+    {
+      name: 'ごはん',
+      url: '/food',
     },
     {
       name: 'オススメ商品',
       url: '/purchase',
     },
     {
-      name: 'マップ',
-      url: '/map',
-    },
-    {
       name: 'ランキング',
       url: '/ranking',
+    },
+    {
+      name: 'マップ',
+      url: '/map',
     },
     {
       name: 'ABOUT',
@@ -48,6 +52,10 @@ export default {
     },
     {
       id: 4,
+      name: 'ごはん',
+    },
+    {
+      id: 5,
       name: 'オススメ商品',
     },
   ],

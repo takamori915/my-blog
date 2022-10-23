@@ -37,6 +37,11 @@ const routes = [
     component: () => import('../components/Noodle.vue')
   },
   {
+    path: '/food',
+    name: "food",
+    component: () => import('../components/Food.vue')
+  },
+  {
     path: '/map',
     name: "map",
     component: () => import('../components/Map.vue')

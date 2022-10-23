@@ -3,20 +3,21 @@
     <section class="ranking">
       <home-header/>
       <v-container class="ranking__container">
-        <v-row class="ranking__contents">
+        <v-row v-if="isLoading" align-content="center" style="height: 500px;">
+          <v-col cols="12" align="center">
+            <v-progress-circular indeterminate color="deep-purple accent-4"></v-progress-circular>
+          </v-col>
+        </v-row>
+        <v-row class="ranking__contents" v-if="!isLoading">
           <v-col cols="12" sm="9" class="ranking__contents-main">
             <v-row>
               <v-col>
-                <h2>最近の記事</h2>
+                <h2>ランキング</h2>
                 <v-divider></v-divider>
+                <p class="pt-2" v-if="articles.length === 0">ランキング準備中</p>
               </v-col>
             </v-row>
-            <v-row v-if="isLoading" align-content="center" style="height: 500px;">
-              <v-col cols="12" align="center">
-                <v-progress-circular indeterminate color="deep-purple accent-4"></v-progress-circular>
-              </v-col>
-            </v-row>
-            <v-row v-if="!isLoading">
+            <v-row>
               <v-col cols="12" sm="6" v-for="(article) in articles" :key="article.id" align="left">
                 <router-link :to="{ name: 'article-detail', params: { id: article.id } }" class="ranking__router-link">
                   <v-row class="ranking__content-side">
@@ -38,39 +39,6 @@
                   <v-divider></v-divider>
                 </router-link>
               </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                 <h2>おすすめの記事</h2>
-                <v-divider></v-divider>
-              </v-col>
-            </v-row>
-            <v-row justify="center">
-              <div v-for="(article, index) in articles" :key="article.id">
-                <v-col v-if="index <= 2">
-                  <v-card max-width="300">
-                    <v-img
-                      class="white--text align-end" 
-                      height="200" 
-                      :src="article.imgUrl1">
-                      <v-card-title>{{ article.title}}</v-card-title>
-                    </v-img>
-                    <div class="category">
-                      <app-chip :text="article.categoryName"></app-chip>
-                    </div>
-                    <p class="ranking__content-recommend-summary text--primary text-left ma-2">{{ article.summary }}</p>
-                    <p class="ranking__content-recommend-created-at ma-2">
-                      {{ article.createdAt }}
-                    </p>
-                    <v-card-actions class="">
-                      <v-spacer></v-spacer>
-                      <router-link :to="{ name: 'article-detail', params: { id: article.id } }">
-                        <v-btn color="orange" text>詳細</v-btn>
-                      </router-link>
-                    </v-card-actions>
-                  </v-card>
-                </v-col>
-              </div>
             </v-row>
           </v-col>
           <v-col cols="12" sm="3" class="ranking__contents-right">
@@ -111,7 +79,7 @@ export default {
     isLoading: false,
   }),
   mounted() {
-    this.getData("filters=category[contains]旅行").then(( res ) => { this.articles = res });
+    this.getData("filters=category[contains]温泉").then(( res ) => { this.articles = res });
   },
   methods: {
     async getData(filter) {
@@ -124,15 +92,23 @@ export default {
       );
       let resData = response.data.contents;
       resData.forEach(article => {
+        if (article.image1?.url) {
+          article.imgUrl1 = article.image1?.url; 
+        }
         if (article.category) {
           article.categoryName = article.category[0];
+        }
+        if (article.created_at) {
+          article.createdAt = moment(article.created_at).format("YYYY年M月D日(dd)");
+        } else {
+          article.createdAt = "";
         }
       })
       resData.sort((a, b) => { return (a.created_at > b.created_at) ? -1 : 1; });
       this.isLoading = false;
       return resData;
-    }
-  },
+    },
+  }
 }
 </script>
 

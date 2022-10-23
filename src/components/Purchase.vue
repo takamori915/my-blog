@@ -9,6 +9,7 @@
               <v-col>
                 <h2>最近の記事</h2>
                 <v-divider></v-divider>
+                <p class="pt-2" v-if="articles.length === 0">最近の記事はありません</p>
               </v-col>
             </v-row>
             <v-row v-if="isLoading" align-content="center" style="height: 500px;">
@@ -38,39 +39,6 @@
                   <v-divider></v-divider>
                 </router-link>
               </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                 <h2>おすすめの記事</h2>
-                <v-divider></v-divider>
-              </v-col>
-            </v-row>
-            <v-row justify="center">
-              <div v-for="(article, index) in articles" :key="article.id">
-                <v-col v-if="index <= 2">
-                  <v-card max-width="300">
-                    <v-img
-                      class="white--text align-end" 
-                      height="200" 
-                      :src="article.imgUrl1">
-                      <v-card-title>{{ article.title}}</v-card-title>
-                    </v-img>
-                    <div class="category">
-                      <app-chip :text="article.categoryName"></app-chip>
-                    </div>
-                    <p class="purchase__content-recommend-summary text--primary text-left ma-2">{{ article.summary }}</p>
-                    <p class="purchase__content-recommend-created-at ma-2">
-                      {{ article.createdAt }}
-                    </p>
-                    <v-card-actions class="">
-                      <v-spacer></v-spacer>
-                      <router-link :to="{ name: 'article-detail', params: { id: article.id } }">
-                        <v-btn color="orange" text>詳細</v-btn>
-                      </router-link>
-                    </v-card-actions>
-                  </v-card>
-                </v-col>
-              </div>
             </v-row>
           </v-col>
           <v-col cols="12" sm="3" class="purchase__contents-right">

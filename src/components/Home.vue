@@ -29,6 +29,7 @@
               <v-col>
                 <h2>最近の記事</h2>
                 <v-divider></v-divider>
+                <p class="pt-2" v-if="articles.length === 0">最近の記事はありません</p>
               </v-col>
             </v-row>
             <v-row>

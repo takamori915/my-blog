@@ -1,15 +1,15 @@
 <template>
   <div>
-    <section class="trip">
+    <section class="food">
       <home-header/>
-      <v-container class="trip__container">
+      <v-container class="food__container">
         <v-row v-if="isLoading" align-content="center" style="height: 500px;">
           <v-col cols="12" align="center">
             <v-progress-circular indeterminate color="deep-purple accent-4"></v-progress-circular>
           </v-col>
         </v-row>
-        <v-row class="trip__contents" v-if="!isLoading">
-          <v-col cols="12" sm="9" class="trip__contents-main">
+        <v-row class="food__contents" v-if="!isLoading">
+          <v-col cols="12" sm="9" class="food__contents-main">
             <v-row>
               <v-col>
                 <h2>最近の記事</h2>
@@ -19,21 +19,21 @@
             </v-row>
             <v-row>
               <v-col cols="12" sm="6" v-for="(article) in articles" :key="article.id" align="left">
-                <router-link :to="{ name: 'article-detail', params: { id: article.id } }" class="trip__router-link">
-                  <v-row class="trip__content-side">
-                    <v-col cols="5" class="trip__content-side-frame">
-                        <v-img :src="article.imgUrl1" class="trip__content-side-img">
-                          <div class="trip__content-side-category">
+                <router-link :to="{ name: 'article-detail', params: { id: article.id } }" class="food__router-link">
+                  <v-row class="food__content-side">
+                    <v-col cols="5" class="food__content-side-frame">
+                        <v-img :src="article.imgUrl1" class="food__content-side-img">
+                          <div class="food__content-side-category">
                             <app-chip :text="article.categoryName"></app-chip>
                           </div>
                         </v-img>
                     </v-col>
-                    <v-col cols="7" class="trip__content-side-text">
-                      <p class="trip__content-side-created-at">
+                    <v-col cols="7" class="food__content-side-text">
+                      <p class="food__content-side-created-at">
                         {{ article.createdAt }}
                       </p>
                       <h4>{{ article.title }}</h4>
-                      <p class="trip__content-side-summary">{{ article.summary }}</p>
+                      <p class="food__content-side-summary">{{ article.summary }}</p>
                     </v-col>
                   </v-row>
                   <v-divider></v-divider>
@@ -41,7 +41,7 @@
               </v-col>
             </v-row>
           </v-col>
-          <v-col cols="12" sm="3" class="trip__contents-right">
+          <v-col cols="12" sm="3" class="food__contents-right">
             <v-row>
               <v-col cols="12" align="center">
                 <v-card height="300">
@@ -69,19 +69,17 @@ import moment from "moment"
 moment.locale("ja")
 
 export default {
-  name: 'trip',
+  name: 'food',
   components: {
     HomeHeader,
     AppChip
   },
   data: () => ({
     articles: [],
-    recommends: [],
     isLoading: false,
   }),
   mounted() {
-    this.getData("filters=category[contains]旅行").then(( res ) => { this.articles = res });
-    this.getData("filters=category[contains]ラーメン[or]category[contains]温泉").then(( res ) => { this.recommends = res });
+    this.getData("filters=category[contains]ごはん").then(( res ) => { this.articles = res });
   },
   methods: {
     async getData(filter) {
@@ -115,15 +113,15 @@ export default {
 </script>
 
 <style lang="scss">
-.trip__container {
+.food__container {
   padding: 0;
   margin: 0;
   max-width: none;
 }
-.trip__contents {
+.food__contents {
   margin: 10px 10px 40px 10px;
 }
-.trip__contents-main {
+.food__contents-main {
   justify-content: right;
 }
 .category {
@@ -136,16 +134,16 @@ export default {
   overflow: hidden;
 }
 
-.trip__content-main--flex {
+.food__content-main--flex {
   display: flex;
   padding: 0px 10px 10px 10px;
   height: 150px;
   width: 450px;
-  .trip__content-create-at {
+  .food__content-create-at {
     font-size: 12px;
     margin: 0;
   }                                                                               
-  .trip__content-summary {
+  .food__content-summary {
     height: 50px;
     overflow: hidden;
     word-break: break-all;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ;
@@ -155,18 +153,18 @@ figure {
   width: 120px;
   height: 120px;
 }
-.trip__content-main-img {
+.food__content-main-img {
   min-width: 120px;
   min-height: 120px;
   max-width: 100%;
   max-height: 100%;
   vertical-align: top;
 }
-.trip__router-link {
+.food__router-link {
   text-decoration: none;
   color: inherit !important;
 }
-.trip__content-side {
+.food__content-side {
   justify-content: center;
   align-content: center;
   margin: 0px;
@@ -201,7 +199,7 @@ figure {
     height: 140px;
   }
 }
-.trip__content-recommend {
+.food__content-recommend {
   &-summary {
     font-size: 16px;
     overflow: hidden;
