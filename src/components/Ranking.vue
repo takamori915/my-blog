@@ -11,7 +11,12 @@
                 <v-divider></v-divider>
               </v-col>
             </v-row>
-            <v-row>
+            <v-row v-if="isLoading" align-content="center" style="height: 500px;">
+              <v-col cols="12" align="center">
+                <v-progress-circular indeterminate color="deep-purple accent-4"></v-progress-circular>
+              </v-col>
+            </v-row>
+            <v-row v-if="!isLoading">
               <v-col cols="12" sm="6" v-for="(article) in articles" :key="article.id" align="left">
                 <router-link :to="{ name: 'article-detail', params: { id: article.id } }" class="ranking__router-link">
                   <v-row class="ranking__content-side">
@@ -103,29 +108,30 @@ export default {
   },
   data: () => ({
     articles: [],
+    isLoading: false,
   }),
-  async mounted() {
-    const response = await axios.get(
-      "https://takamori-c.microcms.io/api/v1/articles?filters=category[contains]旅行",
-      {
-        headers: { "X-MICROCMS-API-KEY": process.env.VUE_APP_X_MICROCMS_API_KEY },
-      }
-    );
-    this.articles = response.data.contents;
-    this.articles.forEach(article => {
-      if (article.image1?.url) {
-        article.imgUrl1 = article.image1?.url; 
-      }
-      if (article.category) {
-        article.categoryName = article.category[0];
-      }
-      if (article.created_at) {
-        article.createdAt = moment(article.created_at).format("YYYY年M月D日(dd)");
-      } else {
-        article.createdAt = "";
-      }
-    })
-    this.articles.sort((a, b) => { return (a.created_at > b.created_at) ? -1 : 1; });
+  mounted() {
+    this.getData("filters=category[contains]旅行").then(( res ) => { this.articles = res });
+  },
+  methods: {
+    async getData(filter) {
+      this.isLoading = true;
+      const response = await axios.get(
+        "https://takamori-c.microcms.io/api/v1/articles?" + filter,
+        {
+          headers: { "X-MICROCMS-API-KEY": process.env.VUE_APP_X_MICROCMS_API_KEY },
+        }
+      );
+      let resData = response.data.contents;
+      resData.forEach(article => {
+        if (article.category) {
+          article.categoryName = article.category[0];
+        }
+      })
+      resData.sort((a, b) => { return (a.created_at > b.created_at) ? -1 : 1; });
+      this.isLoading = false;
+      return resData;
+    }
   },
 }
 </script>

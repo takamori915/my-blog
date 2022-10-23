@@ -3,7 +3,12 @@
     <section class="onsen">
       <home-header/>
       <v-container class="onsen__container">
-        <v-row class="onsen__contents">
+        <v-row v-if="isLoading" align-content="center" style="height: 500px;">
+          <v-col cols="12" align="center">
+            <v-progress-circular indeterminate color="deep-purple accent-4"></v-progress-circular>
+          </v-col>
+        </v-row>
+        <v-row class="onsen__contents" v-if="!isLoading">
           <v-col cols="12" sm="9" class="onsen__contents-main">
             <v-row>
               <v-col>
@@ -33,39 +38,6 @@
                   <v-divider></v-divider>
                 </router-link>
               </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                 <h2>おすすめの記事</h2>
-                <v-divider></v-divider>
-              </v-col>
-            </v-row>
-            <v-row justify="center">
-              <div v-for="(article, index) in recommends" :key="article.id">
-                <v-col v-if="index <= 2">
-                  <v-card max-width="300">
-                    <v-img
-                      class="white--text align-end" 
-                      height="200" 
-                      :src="article.imgUrl1">
-                      <v-card-title>{{ article.title}}</v-card-title>
-                    </v-img>
-                    <div class="category">
-                      <app-chip :text="article.categoryName"></app-chip>
-                    </div>
-                    <p class="onsen__content-recommend-summary text--primary text-left ma-2">{{ article.summary }}</p>
-                    <p class="onsen__content-recommend-created-at ma-2">
-                      {{ article.createdAt }}
-                    </p>
-                    <v-card-actions class="">
-                      <v-spacer></v-spacer>
-                      <router-link :to="{ name: 'article-detail', params: { id: article.id } }">
-                        <v-btn color="orange" text>詳細</v-btn>
-                      </router-link>
-                    </v-card-actions>
-                  </v-card>
-                </v-col>
-              </div>
             </v-row>
           </v-col>
           <v-col cols="12" sm="3" class="onsen__contents-right">
@@ -103,14 +75,14 @@ export default {
   },
   data: () => ({
     articles: [],
-    recommends: [],
+    isLoading: false,
   }),
   mounted() {
     this.getData("filters=category[contains]温泉").then(( res ) => { this.articles = res });
-    this.getData("filters=category[contains]ラーメン[or]category[contains]旅行").then(( res ) => { this.recommends = res });
   },
   methods: {
     async getData(filter) {
+      this.isLoading = true;
       const response = await axios.get(
         "https://takamori-c.microcms.io/api/v1/articles?" + filter,
         {
@@ -132,6 +104,7 @@ export default {
         }
       })
       resData.sort((a, b) => { return (a.created_at > b.created_at) ? -1 : 1; });
+      this.isLoading = false;
       return resData;
     },
   }

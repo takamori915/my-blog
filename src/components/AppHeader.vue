@@ -3,7 +3,11 @@
   <header>
     <v-app-bar app dark clipped-left>
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-      <v-toolbar-title>Taka-Cafe</v-toolbar-title>
+      <v-toolbar-title>
+        <router-link :to="{ name: 'Home' }" class="v-toolbar__title-link">
+          Taka-Cafe
+        </router-link>
+      </v-toolbar-title>
       <v-tabs>
         <v-tab v-for="(menuItem, index) in menuItems" :key="index" :to="menuItem.url">
           {{ menuItem.name }}
@@ -43,6 +47,10 @@ export default {
 .v-toolbar__title {
   overflow: visible !important;
   margin-right: 50px !important;
+  &-link{
+    text-decoration: none;
+    color: inherit !important;
+  }
 }
 .v-app-bar__nav-icon {
   @include display_pc {

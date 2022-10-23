@@ -5,7 +5,12 @@
         <div class="section__title-text">{{ article.title }}</div>
       </div>
       <v-container class="map__container">
-        <v-row class="map__contents">
+        <v-row v-if="isLoading" align-content="center" style="height: 500px;">
+          <v-col cols="12" align="center">
+            <v-progress-circular indeterminate color="deep-purple accent-4"></v-progress-circular>
+          </v-col>
+        </v-row>
+        <v-row class="map__contents" v-if="!isLoading">
           <v-col cols="12" sm="9">
             <v-row>
               <v-col cols="12" class="map__contents-img">
@@ -43,6 +48,7 @@ export default {
   name: "Map",
   data: () => ({
     articles: [],
+    isLoading: false,
   }),
   components: {
     IframeCustom,
@@ -53,6 +59,7 @@ export default {
   },
   methods: {
     async getData(filter) {
+      this.isLoading = true;
       const response = await axios.get(
         "https://takamori-c.microcms.io/api/v1/articles?" + filter,
         {
@@ -66,17 +73,18 @@ export default {
         }
       })
       resData.sort((a, b) => { return (a.created_at > b.created_at) ? -1 : 1; });
+      this.isLoading = false;
       return resData;
     }
-    },
-    computed: {
-      sanitizedBody() {
-        sanitizeHtml.defaults.allowedTags = sanitizeHtml.defaults.allowedTags.concat(["img", "iframe"]);
-        sanitizeHtml.defaults.allowedAttributes["iframe"] = ["*"];
-        return sanitizeHtml(this.article.body);
-      }
+  },
+  computed: {
+    sanitizedBody() {
+      sanitizeHtml.defaults.allowedTags = sanitizeHtml.defaults.allowedTags.concat(["img", "iframe"]);
+      sanitizeHtml.defaults.allowedAttributes["iframe"] = ["*"];
+      return sanitizeHtml(this.article.body);
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

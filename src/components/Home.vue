@@ -3,7 +3,12 @@
     <section class="home">
       <home-header/>
       <v-container class="home__container">
-        <v-row class="home__contents">
+        <v-row v-if="isLoading" align-content="center" style="height: 500px;">
+          <v-col cols="12" align="center">
+            <v-progress-circular indeterminate color="deep-purple accent-4"></v-progress-circular>
+          </v-col>
+        </v-row>
+        <v-row class="home__contents" v-if="!isLoading">
           <!-- <v-col>
             <v-card class="mx-auto" width="300" height="330">
               <v-img 
@@ -85,10 +90,12 @@ export default {
   },
   data: () => ({
     articles: [],
+    isLoading: false,
   }),
   async mounted() {
+    this.isLoading = true;
     const response = await axios.get(
-      "https://takamori-c.microcms.io/api/v1/articles",
+      "https://takamori-c.microcms.io/api/v1/articles?filters=category[contains]温泉[or]category[contains]旅行[or]category[contains]ラーメン[or]category[contains]オススメ商品",
       {
         headers: { "X-MICROCMS-API-KEY": process.env.VUE_APP_X_MICROCMS_API_KEY },
       }
@@ -119,6 +126,7 @@ export default {
     // let result = arr.sort((a, b) => { return (a.date > b.date) ? -1 : 1;});
     // console.log(result);
     this.articles.sort((a, b) => { return (a.created_at > b.created_at) ? -1 : 1; });
+    this.isLoading = false;
   },
 }
 </script>

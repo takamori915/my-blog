@@ -14,6 +14,7 @@
                   prepend-inner-icon="mdi-magnify"
                   height="30"
                   clearable
+                  required
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="5" class="py-1">
@@ -46,7 +47,7 @@
                 <v-divider></v-divider>
               </v-col>
             </v-row>
-            <v-row v-if="isLoading">
+            <v-row v-if="isLoading" align-content="center" style="height: 500px;">
               <v-col cols="12" align="center">
                <v-progress-circular indeterminate color="deep-purple accent-4"></v-progress-circular>
               </v-col>
