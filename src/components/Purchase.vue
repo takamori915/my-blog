@@ -3,7 +3,12 @@
     <section class="purchase">
       <home-header/>
       <v-container class="purchase__container">
-        <v-row class="purchase__contents">
+        <v-row v-if="isLoading" align-content="center" style="height: 500px;">
+          <v-col cols="12" align="center">
+            <v-progress-circular indeterminate color="deep-purple accent-4"></v-progress-circular>
+          </v-col>
+        </v-row>
+        <v-row class="purchase__contents" v-if="!isLoading">
           <v-col cols="12" sm="9" class="purchase__contents-main">
             <v-row>
               <v-col>
@@ -12,12 +17,7 @@
                 <p class="pt-2" v-if="articles.length === 0">最近の記事はありません</p>
               </v-col>
             </v-row>
-            <v-row v-if="isLoading" align-content="center" style="height: 500px;">
-              <v-col cols="12" align="center">
-                <v-progress-circular indeterminate color="deep-purple accent-4"></v-progress-circular>
-              </v-col>
-            </v-row>
-            <v-row v-if="!isLoading">
+            <v-row>
               <v-col cols="12" sm="6" v-for="(article) in articles" :key="article.id" align="left">
                 <router-link :to="{ name: 'article-detail', params: { id: article.id } }" class="purchase__router-link">
                   <v-row class="purchase__content-side">
@@ -92,8 +92,16 @@ export default {
       );
       let resData = response.data.contents;
       resData.forEach(article => {
+        if (article.image1?.url) {
+          article.imgUrl1 = article.image1?.url; 
+        }
         if (article.category) {
           article.categoryName = article.category[0];
+        }
+        if (article.created_at) {
+          article.createdAt = moment(article.created_at).format("YYYY年M月D日(dd)");
+        } else {
+          article.createdAt = "";
         }
       })
       resData.sort((a, b) => { return (a.created_at > b.created_at) ? -1 : 1; });
