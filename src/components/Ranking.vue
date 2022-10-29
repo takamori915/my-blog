@@ -17,17 +17,22 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="12" sm="6" v-for="(article) in articles" :key="article.id" align="left">
+              <v-col cols="12" v-for="(article) in articles" :key="article.id" align="left">
                 <router-link :to="{ name: 'article-detail', params: { id: article.id } }" class="ranking__router-link">
-                  <v-row class="ranking__content-side">
-                    <v-col cols="5" class="ranking__content-side-frame">
+                  <v-row class="ranking__content-side"> 
+                    <v-col cols="5" sm="3" class="ranking__content-side-frame">
                         <v-img :src="article.imgUrl1" class="ranking__content-side-img">
+                          <div class="ranking__content-side-rank">
+                            <v-img src="../assets/img/rank1.png" width="60px" v-if="article.rank==='1'"></v-img>
+                            <v-img src="../assets/img/rank2.png" width="60px" v-if="article.rank==='2'"></v-img>
+                            <v-img src="../assets/img/rank3.png" width="60px" v-if="article.rank==='3'"></v-img>
+                          </div>
                           <div class="ranking__content-side-category">
                             <app-chip :text="article.categoryName"></app-chip>
                           </div>
                         </v-img>
                     </v-col>
-                    <v-col cols="7" class="ranking__content-side-text">
+                    <v-col cols="7" sm="9" class="ranking__content-side-text">
                       <p class="ranking__content-side-created-at">
                         {{ article.createdAt }}
                       </p>
@@ -78,7 +83,7 @@ export default {
     isLoading: false,
   }),
   mounted() {
-    this.getData("filters=category[contains]温泉").then(( res ) => { this.articles = res });
+    this.getData("filters=category[contains]温泉[or]category[contains]旅行[or]category[contains]ラーメン[or]category[contains]商品[or]category[contains]スポット").then(( res ) => { this.articles = res });
   },
   methods: {
     async getData(filter) {
@@ -103,7 +108,7 @@ export default {
           article.createdAt = "";
         }
       })
-      resData.sort((a, b) => { return (a.created_at > b.created_at) ? -1 : 1; });
+      resData.sort((a, b) => { return (a.rank < b.rank) ? -1 : 1; });
       this.isLoading = false;
       return resData;
     },
@@ -187,6 +192,11 @@ figure {
     text-align: right;
     margin: 0 !important;
   }
+  &-rank {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+  }
   &-category {
     position: absolute;
     top: 5px;
@@ -196,7 +206,10 @@ figure {
     font-size: 12px;
   }
   &-img {
-    height: 140px;
+    height: 160px;
+    @include display_pc {
+      height: 180px;
+    }
   }
 }
 .ranking__content-recommend {
