@@ -157,7 +157,7 @@ export default {
                       "[or]body[contains]" + this.keyword + ")";
       }
       this.categoryNames.forEach((name, index) => { 
-        keywordList = keywordList + (index === 0 ?  "[and](" : "[or]");
+        keywordList = keywordList + (index === 0 ?  (this.keyword ? "[and](" : "(") : "[or]");
         keywordList = keywordList + "category[contains]" + name;
         keywordList = keywordList + (index === this.categoryNames.length - 1 ? ")" : "");
       });
