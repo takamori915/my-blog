@@ -21,16 +21,16 @@ export default {
       url: '/food',
     },
     {
-      name: 'オススメ商品',
+      name: '商品',
       url: '/purchase',
+    },
+    {
+      name: 'スポット',
+      url: '/spot',
     },
     {
       name: 'ランキング',
       url: '/ranking',
-    },
-    {
-      name: 'マップ',
-      url: '/map',
     },
     {
       name: 'ABOUT',
@@ -56,7 +56,11 @@ export default {
     },
     {
       id: 5,
-      name: 'オススメ商品',
+      name: '商品',
+    },
+    {
+      id: 6,
+      name: 'スポット',
     },
   ],
 }

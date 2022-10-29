@@ -1,15 +1,15 @@
 <template>
   <div>
-    <section class="purchase">
+    <section class="spot">
       <home-header/>
-      <v-container class="purchase__container">
+      <v-container class="spot__container">
         <v-row v-if="isLoading" align-content="center" style="height: 500px;">
           <v-col cols="12" align="center">
             <v-progress-circular indeterminate color="deep-purple accent-4"></v-progress-circular>
           </v-col>
         </v-row>
-        <v-row class="purchase__contents" v-if="!isLoading">
-          <v-col cols="12" sm="9" class="purchase__contents-main">
+        <v-row class="spot__contents" v-if="!isLoading">
+          <v-col cols="12" sm="9" class="spot__contents-main">
             <v-row>
               <v-col>
                 <h2>最近の記事</h2>
@@ -19,21 +19,21 @@
             </v-row>
             <v-row>
               <v-col cols="12" sm="6" v-for="(article) in articles" :key="article.id" align="left">
-                <router-link :to="{ name: 'article-detail', params: { id: article.id } }" class="purchase__router-link">
-                  <v-row class="purchase__content-side">
-                    <v-col cols="5" class="purchase__content-side-frame">
-                        <v-img :src="article.imgUrl1" class="purchase__content-side-img">
-                          <div class="purchase__content-side-category">
+                <router-link :to="{ name: 'article-detail', params: { id: article.id } }" class="spot__router-link">
+                  <v-row class="spot__content-side">
+                    <v-col cols="5" class="spot__content-side-frame">
+                        <v-img :src="article.imgUrl1" class="spot__content-side-img">
+                          <div class="spot__content-side-category">
                             <app-chip :text="article.categoryName"></app-chip>
                           </div>
                         </v-img>
                     </v-col>
-                    <v-col cols="7" class="purchase__content-side-text">
-                      <p class="purchase__content-side-created-at">
+                    <v-col cols="7" class="spot__content-side-text">
+                      <p class="spot__content-side-created-at">
                         {{ article.createdAt }}
                       </p>
                       <h4>{{ article.title }}</h4>
-                      <p class="purchase__content-side-summary">{{ article.summary }}</p>
+                      <p class="spot__content-side-summary">{{ article.summary }}</p>
                     </v-col>
                   </v-row>
                   <v-divider></v-divider>
@@ -41,7 +41,7 @@
               </v-col>
             </v-row>
           </v-col>
-          <v-col cols="12" sm="3" class="purchase__contents-right">
+          <v-col cols="12" sm="3" class="spot__contents-right">
             <v-row>
               <v-col cols="12" align="center">
                 <v-card height="300">
@@ -69,17 +69,17 @@ import moment from "moment"
 moment.locale("ja")
 
 export default {
-  name: 'purchase',
+  name: 'spot',
   components: {
     HomeHeader,
     AppChip
   },
   data: () => ({
-  articles: [],
+    articles: [],
     isLoading: false,
   }),
   mounted() {
-    this.getData("filters=category[contains]商品").then(( res ) => { this.articles = res });
+    this.getData("filters=category[contains]スポット").then(( res ) => { this.articles = res });
   },
   methods: {
     async getData(filter) {
@@ -108,20 +108,20 @@ export default {
       this.isLoading = false;
       return resData;
     }
-  },
+  }
 }
 </script>
 
 <style lang="scss">
-.purchase__container {
+.spot__container {
   padding: 0;
   margin: 0;
   max-width: none;
 }
-.purchase__contents {
+.spot__contents {
   margin: 10px 10px 40px 10px;
 }
-.purchase__contents-main {
+.spot__contents-main {
   justify-content: right;
 }
 .category {
@@ -134,16 +134,16 @@ export default {
   overflow: hidden;
 }
 
-.purchase__content-main--flex {
+.spot__content-main--flex {
   display: flex;
   padding: 0px 10px 10px 10px;
   height: 150px;
   width: 450px;
-  .purchase__content-create-at {
+  .spot__content-create-at {
     font-size: 12px;
     margin: 0;
   }                                                                               
-  .purchase__content-summary {
+  .spot__content-summary {
     height: 50px;
     overflow: hidden;
     word-break: break-all;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ;
@@ -153,18 +153,18 @@ figure {
   width: 120px;
   height: 120px;
 }
-.purchase__content-main-img {
+.spot__content-main-img {
   min-width: 120px;
   min-height: 120px;
   max-width: 100%;
   max-height: 100%;
   vertical-align: top;
 }
-.purchase__router-link {
+.spot__router-link {
   text-decoration: none;
   color: inherit !important;
 }
-.purchase__content-side {
+.spot__content-side {
   justify-content: center;
   align-content: center;
   margin: 0px;
@@ -199,7 +199,7 @@ figure {
     height: 140px;
   }
 }
-.purchase__content-recommend {
+.spot__content-recommend {
   &-summary {
     font-size: 16px;
     overflow: hidden;

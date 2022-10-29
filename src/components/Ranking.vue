@@ -12,7 +12,6 @@
           <v-col cols="12" sm="9" class="ranking__contents-main">
             <v-row>
               <v-col>
-                <h2>ランキング</h2>
                 <v-divider></v-divider>
                 <p class="pt-2" v-if="articles.length === 0">ランキング準備中</p>
               </v-col>
@@ -119,6 +118,7 @@ export default {
   max-width: none;
 }
 .ranking__contents {
+  padding: 10px 0px 0px 0px;
   margin: 10px 10px 40px 10px;
 }
 .ranking__contents-main {

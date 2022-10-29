@@ -96,7 +96,7 @@ export default {
   async mounted() {
     this.isLoading = true;
     const response = await axios.get(
-      "https://takamori-c.microcms.io/api/v1/articles?filters=category[contains]温泉[or]category[contains]旅行[or]category[contains]ラーメン[or]category[contains]オススメ商品",
+      "https://takamori-c.microcms.io/api/v1/articles?filters=category[contains]温泉[or]category[contains]旅行[or]category[contains]ラーメン[or]category[contains]商品[or]category[contains]スポット",
       {
         headers: { "X-MICROCMS-API-KEY": process.env.VUE_APP_X_MICROCMS_API_KEY },
       }

@@ -14,6 +14,9 @@
         </v-tab>
       </v-tabs>
       <v-spacer></v-spacer>
+      <v-btn icon class="ma-2" to="/map">
+        <v-icon>mdi-map-marker</v-icon>
+      </v-btn>
       <v-btn icon class="ma-2" to="/search">
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
