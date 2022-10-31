@@ -21,13 +21,13 @@
             <v-col cols="12" md="6" class="article-detail__contents-img">
               <v-card>
                 <v-carousel hide-delimiters height="300px">
-                  <v-carousel-item>
+                  <v-carousel-item v-if="article.imgUrl1">
                     <v-img :src="article.imgUrl1" alt="" class="img-fluid" height="300px"></v-img>
                   </v-carousel-item>
-                  <v-carousel-item>
+                  <v-carousel-item v-if="article.imgUrl2">
                     <v-img :src="article.imgUrl2" alt="" class="img-fluid" height="300px"></v-img>
                   </v-carousel-item>
-                  <v-carousel-item>
+                  <v-carousel-item v-if="article.imgUrl3">
                     <v-img :src="article.imgUrl3" alt="" class="img-fluid" height="300px"></v-img>
                   </v-carousel-item>
                 </v-carousel>
@@ -35,8 +35,14 @@
               <v-card v-if="article.map" class="article-detail__contents-img mt-4" height="300px">
                 <iframe-custom :src="String(article.map)"></iframe-custom>
               </v-card>
-              <v-card v-if="article.movie" cols="12" md="6" class="article-detail__contents-img mt-4" height="300">
-                <iframe-custom :src="String(article.movie)"></iframe-custom>
+              <v-card v-if="article.movie1" cols="12" md="6" class="article-detail__contents-img mt-4" height="300">
+                <iframe-custom :src="String(article.movie1)"></iframe-custom>
+              </v-card>
+              <v-card v-if="article.movie2" cols="12" md="6" class="article-detail__contents-img mt-4" height="300">
+                <iframe-custom :src="String(article.movie2)"></iframe-custom>
+              </v-card>
+              <v-card v-if="article.movie3" cols="12" md="6" class="article-detail__contents-img mt-4" height="300">
+                <iframe-custom :src="String(article.movie3)"></iframe-custom>
               </v-card>
             </v-col>
           </v-row>
