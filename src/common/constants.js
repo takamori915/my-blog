@@ -29,6 +29,10 @@ export default {
       url: '/spot',
     },
     {
+      name: '曲♪',
+      url: '/song',
+    },
+    {
       name: 'ランキング',
       url: '/ranking',
     },
@@ -61,6 +65,10 @@ export default {
     {
       id: 6,
       name: 'スポット',
+    },
+    {
+      id: 7,
+      name: '音楽',
     },
   ],
 }

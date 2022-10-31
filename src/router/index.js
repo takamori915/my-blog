@@ -57,6 +57,11 @@ const routes = [
     component: () => import('../components/Spot.vue')
   },
   {
+    path: '/song',
+    name: "song",
+    component: () => import('../components/Song.vue')
+  },
+  {
     path: '/ranking',
     name: "ranking",
     component: () => import('../components/Ranking.vue')
