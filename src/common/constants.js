@@ -68,7 +68,7 @@ export default {
     },
     {
       id: 7,
-      name: '音楽',
+      name: '曲♪',
     },
   ],
 }
