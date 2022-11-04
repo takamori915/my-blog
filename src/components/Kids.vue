@@ -1,30 +1,15 @@
 <template>
   <div>
-    <section class="home">
+    <section class="kids">
       <home-header/>
-      <v-container class="home__container">
+      <v-container class="kids__container">
         <v-row v-if="isLoading" align-content="center" style="height: 500px;">
           <v-col cols="12" align="center">
             <v-progress-circular indeterminate color="deep-purple accent-4"></v-progress-circular>
           </v-col>
         </v-row>
-        <v-row class="home__contents" v-if="!isLoading">
-          <!-- <v-col>
-            <v-card class="mx-auto" width="300" height="330">
-              <v-img 
-                class="white--text align-end" height="200" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
-                <v-card-title>Top 10 Australian beachs</v-card-title>
-              </v-img>
-              <v-card-text class="text--primary">
-                <div>WhiteHeaven Beach</div>
-                <div>Whitsunday Island, Whitsunday Islands</div>
-              </v-card-text>
-              <v-card-actions>
-                <v-btn color="orange" text>More</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col> -->
-          <v-col cols="12" sm="9" class="home__contents-main">
+        <v-row class="kids__contents" v-if="!isLoading">
+          <v-col cols="12" sm="9" class="kids__contents-main">
             <v-row>
               <v-col>
                 <h2>最近の記事</h2>
@@ -34,21 +19,21 @@
             </v-row>
             <v-row>
               <v-col cols="12" sm="6" v-for="(article) in articles" :key="article.id" align="left">
-                <router-link :to="{ name: 'article-detail', params: { id: article.id } }" class="home__router-link">
-                  <v-row class="home__content-side">
-                    <v-col cols="5" class="home__content-side-frame">
-                        <v-img :src="article.imgUrl1" class="home__content-side-img">
-                          <div class="home__content-side-category">
+                <router-link :to="{ name: 'article-detail', params: { id: article.id } }" class="kids__router-link">
+                  <v-row class="kids__content-side">
+                    <v-col cols="5" class="kids__content-side-frame">
+                        <v-img :src="article.imgUrl1" class="kids__content-side-img">
+                          <div class="kids__content-side-category">
                             <app-chip :text="article.categoryName"></app-chip>
                           </div>
                         </v-img>
                     </v-col>
-                    <v-col cols="7" class="home__content-side-text">
-                      <p class="home__content-side-created-at">
+                    <v-col cols="7" class="kids__content-side-text">
+                      <p class="kids__content-side-created-at">
                         {{ article.createdAt }}
                       </p>
                       <h4>{{ article.title }}</h4>
-                      <p class="home__content-side-summary">{{ article.summary }}</p>
+                      <p class="kids__content-side-summary">{{ article.summary }}</p>
                     </v-col>
                   </v-row>
                   <v-divider></v-divider>
@@ -56,7 +41,7 @@
               </v-col>
             </v-row>
           </v-col>
-          <v-col cols="12" sm="3" class="home__contents-right">
+          <v-col cols="12" sm="3" class="kids__contents-right">
             <v-row>
               <v-col cols="12" align="center">
                 <v-card height="300">
@@ -78,13 +63,13 @@
 <script>
 import axios from "axios";
 import HomeHeader from "./HomeHeader.vue";
-import AppChip from "../components/AppChip.vue"
+import AppChip from "./AppChip.vue"
 import moment from "moment"
 
 moment.locale("ja")
 
 export default {
-  name: 'Home',
+  name: 'kids',
   components: {
     HomeHeader,
     AppChip
@@ -93,55 +78,50 @@ export default {
     articles: [],
     isLoading: false,
   }),
-  async mounted() {
-    this.isLoading = true;
-    const response = await axios.get(
-      "https://takamori-c.microcms.io/api/v1/articles?filters=category[contains]温泉[or]category[contains]旅行[or]category[contains]ラーメン[or]category[contains]商品[or]category[contains]スポット[or]category[contains]キッズ[or]category[contains]曲♪",
-      {
-        headers: { "X-MICROCMS-API-KEY": process.env.VUE_APP_X_MICROCMS_API_KEY },
-      }
-    );
-    this.articles = response.data.contents;
-    // for (let i = 0; i < this.articles.length; i++) {
-    //   console.log(this.articles[i].image1.url);
-    //   this.articles[i].imgUrl1 = this.articles[i].image1.url;
-    // }
-    this.articles.forEach(article => {
-      if (article.image1?.url) {
-        article.imgUrl1 = article.image1?.url; 
-      }
-      if (article.category) {
-        article.categoryName = article.category[0];
-      }
-      if (article.created_at) {
-        article.createdAt = moment(article.created_at).format("YYYY年M月D日(dd)");
-      } else {
-        article.createdAt = "";
-      }
-    })
-    // let arr = [
-    //   { date: '2020-02-20', memo: 'あ' },
-    //   { date: '2020-02-21', memo: 'い' },
-    //   { date: '2020-02-22', memo: 'う' }
-    // ];
-    // let result = arr.sort((a, b) => { return (a.date > b.date) ? -1 : 1;});
-    // console.log(result);
-    this.articles.sort((a, b) => { return (a.created_at > b.created_at) ? -1 : 1; });
-    this.isLoading = false;
+  mounted() {
+    this.getData("filters=category[contains]キッズ").then(( res ) => { this.articles = res });
   },
+  methods: {
+    async getData(filter) {
+      this.isLoading = true;
+      const response = await axios.get(
+        "https://takamori-c.microcms.io/api/v1/articles?" + filter,
+        {
+          headers: { "X-MICROCMS-API-KEY": process.env.VUE_APP_X_MICROCMS_API_KEY },
+        }
+      );
+      let resData = response.data.contents;
+      resData.forEach(article => {
+        if (article.image1?.url) {
+          article.imgUrl1 = article.image1?.url; 
+        }
+        if (article.category) {
+          article.categoryName = article.category[0];
+        }
+        if (article.created_at) {
+          article.createdAt = moment(article.created_at).format("YYYY年M月D日(dd)");
+        } else {
+          article.createdAt = "";
+        }
+      })
+      resData.sort((a, b) => { return (a.created_at > b.created_at) ? -1 : 1; });
+      this.isLoading = false;
+      return resData;
+    }
+  }
 }
 </script>
 
 <style lang="scss">
-.home__container {
+.kids__container {
   padding: 0;
   margin: 0;
   max-width: none;
 }
-.home__contents {
+.kids__contents {
   margin: 10px 10px 40px 10px;
 }
-.home__contents-main {
+.kids__contents-main {
   justify-content: right;
 }
 .category {
@@ -154,16 +134,16 @@ export default {
   overflow: hidden;
 }
 
-.home__content-main--flex {
+.kids__content-main--flex {
   display: flex;
   padding: 0px 10px 10px 10px;
   height: 150px;
   width: 450px;
-  .home__content-create-at {
+  .kids__content-create-at {
     font-size: 12px;
     margin: 0;
   }                                                                               
-  .home__content-summary {
+  .kids__content-summary {
     height: 50px;
     overflow: hidden;
     word-break: break-all;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ;
@@ -173,18 +153,18 @@ figure {
   width: 120px;
   height: 120px;
 }
-.home__content-main-img {
+.kids__content-main-img {
   min-width: 120px;
   min-height: 120px;
   max-width: 100%;
   max-height: 100%;
   vertical-align: top;
 }
-.home__router-link {
+.kids__router-link {
   text-decoration: none;
   color: inherit !important;
 }
-.home__content-side {
+.kids__content-side {
   justify-content: center;
   align-content: center;
   margin: 0px;
@@ -219,7 +199,7 @@ figure {
     height: 140px;
   }
 }
-.home__content-recommend {
+.kids__content-recommend {
   &-summary {
     font-size: 16px;
     overflow: hidden;

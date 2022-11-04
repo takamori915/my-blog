@@ -53,8 +53,13 @@ const routes = [
   },
   {
     path: '/spot',
-    name: "sport",
+    name: "spot",
     component: () => import('../components/Spot.vue')
+  },
+  {
+    path: '/kids',
+    name: "kids",
+    component: () => import('../components/Kids.vue')
   },
   {
     path: '/song',

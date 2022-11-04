@@ -29,6 +29,10 @@ export default {
       url: '/spot',
     },
     {
+      name: 'キッズ',
+      url: '/kids',
+    },
+    {
       name: '曲♪',
       url: '/song',
     },
@@ -68,6 +72,10 @@ export default {
     },
     {
       id: 7,
+      name: 'キッズ',
+    },
+    {
+      id: 8,
       name: '曲♪',
     },
   ],
