@@ -17,9 +17,9 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="12" v-for="(article) in articles" :key="article.id" align="left">
+              <v-col cols="12" v-for="(article, index) in articles" :key="article.id" align="left">
                 <router-link :to="{ name: 'article-detail', params: { id: article.id } }" class="ranking__router-link">
-                  <v-row class="ranking__content-side"> 
+                  <v-row class="ranking__content-side" v-if="index < 10"> 
                     <v-col cols="5" sm="3" class="ranking__content-side-frame">
                         <v-img :src="article.imgUrl1" class="ranking__content-side-img">
                           <div class="ranking__content-side-rank">
@@ -83,7 +83,7 @@ export default {
     isLoading: false,
   }),
   mounted() {
-    this.getData("filters=category[contains]温泉[or]category[contains]旅行[or]category[contains]ラーメン[or]category[contains]商品[or]category[contains]スポット").then(( res ) => { this.articles = res });
+    this.getData("filters=category[contains]温泉[or]category[contains]旅行[or]category[contains]ラーメン[or]category[contains]商品[or]category[contains]スポット[or]category[contains]キッズ[or]category[contains]曲♪").then(( res ) => { this.articles = res });
   },
   methods: {
     async getData(filter) {
