@@ -1,4 +1,4 @@
-# Taka-Cafe
+# Takamori-Cafe
 
 ## Project setup
 

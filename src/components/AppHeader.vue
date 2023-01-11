@@ -1,15 +1,18 @@
-
 <template>
   <header>
     <v-app-bar app dark clipped-left>
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
       <v-toolbar-title>
         <router-link :to="{ name: 'Home' }" class="v-toolbar__title-link">
-          Taka-Cafe
+          Takamori-Cafe
         </router-link>
       </v-toolbar-title>
       <v-tabs>
-        <v-tab v-for="(menuItem, index) in menuItems" :key="index" :to="menuItem.url">
+        <v-tab
+          v-for="(menuItem, index) in menuItems"
+          :key="index"
+          :to="menuItem.url"
+        >
           {{ menuItem.name }}
         </v-tab>
       </v-tabs>
@@ -23,7 +26,11 @@
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" app dark temporary clipped link>
       <v-list nav dense>
-        <v-list-item v-for="(menuItem, index) in menuItems" :key="index" :to="menuItem.url">
+        <v-list-item
+          v-for="(menuItem, index) in menuItems"
+          :key="index"
+          :to="menuItem.url"
+        >
           <v-list-item-content>
             <v-list-item-title> {{ menuItem.name }}</v-list-item-title>
           </v-list-item-content>
@@ -34,23 +41,23 @@
 </template>
 
 <script>
-import constants from '../common/constants'
+import constants from "../common/constants";
 
 export default {
   data: () => {
     return {
       drawer: false,
       menuItems: constants.menuItems,
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 .v-toolbar__title {
   overflow: visible !important;
   margin-right: 50px !important;
-  &-link{
+  &-link {
     text-decoration: none;
     color: inherit !important;
   }
@@ -61,7 +68,7 @@ export default {
   }
 }
 .v-tabs {
-  display : none;
+  display: none;
   @include display_pc {
     display: block !important;
   }

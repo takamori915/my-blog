@@ -6,7 +6,7 @@
           <v-col>
             <div class="balloon-parent">
               <div class="balloon">
-                <p class="balloon-text">Welcome to Taka-Cafe</p>
+                <p class="balloon-text">Welcome to Takamori-Cafe</p>
                 <br />
                 <p>フロントエンド勉強用に作成したブログです。</p>
                 <p>旅行、温泉、ラーメンなど趣味を載せてますので気晴らしに見に来てください。</p>
