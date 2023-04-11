@@ -1,10 +1,6 @@
 export default {
   menuItems: [
     {
-      name: 'HOME',
-      url: '/',
-    },
-    {
       name: '温泉',
       url: '/onsen',
     },

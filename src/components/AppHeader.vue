@@ -1,7 +1,12 @@
 <template>
   <header>
-    <v-app-bar app dark clipped-left>
-      <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
+    <v-app-bar app dark clipped-left fixed dense>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-avatar size="36px" class="mx-2">  
+        <v-img
+          alt="Takamori-cafe" 
+          src="https://images.microcms-assets.io/assets/16a96ec0ede542a2aacfbaeb19902192/41118b68f6ea453383490826f8a199f8/logo.png"></v-img>
+      </v-avatar>
       <v-toolbar-title>
         <router-link :to="{ name: 'Home' }" class="v-toolbar__title-link">
           Takamori-Cafe
@@ -24,7 +29,7 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer" app dark temporary clipped link>
+    <v-navigation-drawer v-model="drawer" dark app clipped>
       <v-list nav dense>
         <v-list-item
           v-for="(menuItem, index) in menuItems"
@@ -64,13 +69,13 @@ export default {
 }
 .v-app-bar__nav-icon {
   @include display_pc {
-    display: none !important;
+    // display: none !important;
   }
 }
 .v-tabs {
   display: none;
-  @include display_pc {
-    display: block !important;
-  }
+  // @include display_pc {
+  //   display: block !important;
+  // }
 }
 </style>
