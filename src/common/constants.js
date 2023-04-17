@@ -1,32 +1,32 @@
 export default {
   menuItems: [
     {
-      name: '温泉',
-      url: '/onsen',
-    },
-    {
       name: '旅行',
       url: '/trip',
-    },
-    {
-      name: 'ラーメン',
-      url: '/noodle',
-    },
-    {
-      name: 'ごはん',
-      url: '/food',
     },
     {
       name: '商品',
       url: '/purchase',
     },
     {
-      name: 'スポット',
-      url: '/spot',
+      name: '温泉',
+      url: '/onsen',
+    },
+    {
+      name: '食事',
+      url: '/food',
+    },
+    {
+      name: 'ラーメン',
+      url: '/noodle',
     },
     {
       name: 'キッズ',
       url: '/kids',
+    },
+    {
+      name: 'スポット',
+      url: '/spot',
     },
     {
       name: '曲♪',
@@ -44,31 +44,31 @@ export default {
   categoryItems: [
     {
       id: 1,
-      name: '温泉',
-    },
-    {
-      id: 2,
       name: '旅行',
     },
     {
-      id: 3,
-      name: 'ラーメン',
-    },
-    {
-      id: 4,
-      name: 'ごはん',
-    },
-    {
-      id: 5,
+      id: 2,
       name: '商品',
     },
     {
+      id: 3,
+      name: '温泉',
+    },
+    {
+      id: 4,
+      name: '食事',
+    },
+    {
+      id: 5,
+      name: 'ラーメン',
+    },
+    {
       id: 6,
-      name: 'スポット',
+      name: 'キッズ',
     },
     {
       id: 7,
-      name: 'キッズ',
+      name: 'スポット',
     },
     {
       id: 8,

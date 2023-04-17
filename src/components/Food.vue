@@ -79,7 +79,7 @@ export default {
     isLoading: false,
   }),
   mounted() {
-    this.getData("filters=category[contains]ごはん").then(( res ) => { this.articles = res });
+    this.getData("filters=category[contains]食事").then(( res ) => { this.articles = res });
   },
   methods: {
     async getData(filter) {
