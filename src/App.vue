@@ -2,9 +2,7 @@
   <v-app>
     <app-header/>
     <v-main>
-      <v-container fluid class="pa-0">
-        <router-view/>
-      </v-container>
+      <router-view/>
     <app-footer/>
     </v-main>
   </v-app>
@@ -43,8 +41,5 @@ export default {
       color: #42b983;
     }
   }
-}
-.home-header {
-  padding: 0px !important;
 }
 </style>

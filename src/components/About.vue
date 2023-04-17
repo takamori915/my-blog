@@ -34,7 +34,7 @@ export default {
 
 <style lang="scss" scoped>
 .about-header {
-  padding-top: 50px;
+  padding-top: 0px;
   &__content {
     background: url("../assets/img/about-header.jpg");
     background-size: cover;

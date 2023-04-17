@@ -10,10 +10,9 @@
         </v-row>
         <v-row class="ranking__contents" v-if="!isLoading">
           <v-col cols="12" sm="9" class="ranking__contents-main">
-            <v-row>
+            <v-row v-if="articles.length === 0">
               <v-col>
-                <v-divider></v-divider>
-                <p class="pt-2" v-if="articles.length === 0">ランキング準備中</p>
+                <p class="pt-2">ランキング準備中</p>
               </v-col>
             </v-row>
             <v-row>
@@ -123,7 +122,7 @@ export default {
   max-width: none;
 }
 .ranking__contents {
-  padding: 10px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
   margin: 10px 10px 40px 10px;
 }
 .ranking__contents-main {

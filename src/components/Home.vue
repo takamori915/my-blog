@@ -3,12 +3,12 @@
     <section class="home">
       <home-header/>
       <v-container class="home__container">
-        <v-row v-if="isLoading" align-content="center" style="height: 500px;">
+        <v-row v-if="isLoading" align-content="center" style="height: 500px;" dense>
           <v-col cols="12" align="center">
             <v-progress-circular indeterminate color="deep-purple accent-4"></v-progress-circular>
           </v-col>
         </v-row>
-        <v-row class="home__contents" v-if="!isLoading">
+        <v-row class="home__contents" v-if="!isLoading" dense>
           <!-- <v-col>
             <v-card class="mx-auto" width="300" height="330">
               <v-img 

@@ -1,8 +1,6 @@
 <template>
   <section class="map">
     <div v-for="(article) in this.articles" :key="article.id">
-      <div class="section__title">
-      </div>
       <v-container class="map__container">
         <v-row v-if="isLoading" align-content="center" style="height: 500px;">
           <v-col cols="12" align="center">
@@ -87,9 +85,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.section__title {
-  padding: 65px 0px 0px 20px;
-}
 .map__container {
   padding: 0;
   margin: 0;

@@ -1,8 +1,5 @@
 <template>
   <section class="article-detail">
-    <div class="section__title">
-      <div class="section__title-text">{{ article.title }}</div>
-    </div>
     <v-container class="article-detail__container">
       <v-row v-if="isLoading" align-content="center" style="height: 500px;">
         <v-col cols="12" align="center">
@@ -10,7 +7,14 @@
         </v-col>
       </v-row>
       <v-row class="article-detail__contents" v-if="!isLoading">
-        <v-col cols="12" sm="9">
+        <v-col cols="12" sm="9"> 
+          
+          <v-row>
+            <v-col>
+              <h2>{{ article.title }}</h2>
+              <v-divider></v-divider>
+            </v-col>
+          </v-row>
           <v-row>
             <v-col cols="12" md="6" class="article-detail__contents-text ">
               <div class="section__title-subtext"><app-chip :text="article.categoryName"></app-chip></div>
