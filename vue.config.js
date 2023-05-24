@@ -13,7 +13,7 @@ module.exports = {
   // netlify公開用
   //publicPath: isProd ? '/' : '/',
   // github公開用
-  publicPath: isProd ? '/my-blog' : '/',
+  publicPath: './',
   outputDir: 'docs',
   filenameHashing: false,
   productionSourceMap: false, 
