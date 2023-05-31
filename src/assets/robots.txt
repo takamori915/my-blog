@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://takamori-cafe.com/my-blog/sitemap.xml
+Sitemap: https://takamori-cafe.com/sitemap.xml
